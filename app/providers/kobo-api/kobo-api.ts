@@ -17,7 +17,7 @@ export class KoboApi {
 
   koboRequest(url):Observable<any> {
     var headers = new Headers();
-    let auth = ('Basic ' + btoa('ami:ami'));
+    let auth = ('Basic ' + btoa('chrismclarke:nra4ever'));
     headers.append('Authorization', auth);
     let options = new RequestOptions({headers: headers});
     let body = {url: url};
