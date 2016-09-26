@@ -4,8 +4,10 @@ import {ModalController} from "ionic-angular"
 import {ResultsMapPage} from "./results-map/results-map";
 import {ResultsRPage} from "./results-r/results-r";
 import {ResultsVegaPage} from "./results-vega/results-vega";
+import {ResultsImagesPage} from "./results-images/results-images";
 import {Storage, SqlStorage} from 'ionic-angular';
 import {KoboApi} from "../../providers/kobo-api/kobo-api";
+
 
 /*
  Generated class for the ResultsOverviewPage page.
@@ -77,7 +79,7 @@ export class ResultsOverviewPage {
   }
 
   showResult(pageName){
-    let pages={map:ResultsMapPage,r:ResultsRPage,vega:ResultsVegaPage};
+    let pages={map:ResultsMapPage,r:ResultsRPage,vega:ResultsVegaPage, images:ResultsImagesPage};
     let modal = this.modal.create(pages[pageName], {
       showBackdrop: false,
       enableBackdropDismiss: false

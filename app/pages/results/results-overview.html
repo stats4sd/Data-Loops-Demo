@@ -2,12 +2,12 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>results-demos</ion-title>
+    <ion-title>Result Demos</ion-title>
     <ion-buttons end>
       <button (click)="refresh()">
-        <span *ngIf="!finished">Formes de chargement...</span>
+        <span *ngIf="!finished">Refreshing...</span>
         <span *ngIf="anyErrors">Error</span>
-        <span *ngIf="finished && !anyErrors">Recharger</span>
+        <span *ngIf="finished && !anyErrors">Refresh</span>
         <ion-icon name="refresh" *ngIf="finished || anyErrors"></ion-icon>
       </button>
     </ion-buttons>

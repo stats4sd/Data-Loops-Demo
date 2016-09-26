@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {KoboApi} from "../../providers/kobo-api/kobo-api";
+import {KoboApi} from "../../../providers/kobo-api/kobo-api";
 import {Observable} from 'rxjs/Observable'
 
 @Component({
-  templateUrl: 'build/pages/results/results.html'
+  templateUrl: 'build/pages/results//results-images/results-images.html'
 })
-export class ResultsPage {
+export class ResultsImagesPage {
   results: any = [];
   anyErrors: boolean;
   finished: boolean;

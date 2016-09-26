@@ -19,6 +19,7 @@ export class ResultsMapPage {
 
   //after view loaded add the map
   ionViewLoaded() {
+    console.log('loading map');
     var map = new L.Map('map', {
       zoomControl: false,
       center: [18,8],
@@ -38,11 +39,12 @@ export class ResultsMapPage {
     setTimeout(function(){
       map.invalidateSize({reset:true});
     },0);
-    //need to remove then readd as sometimes basemap disappears after navigating away
+    //need to remove then read as sometimes basemap disappears after navigating away
     map.removeLayer(this.mapService.baseMaps.Offline);
     map.addLayer(this.mapService.baseMaps.Offline);
     var baseMaps=this.mapService.baseMaps;
 
+    //function to change online/offline map and give warning after zoom
     map.on('zoomend',function(){
       var z =map.getZoom();
       if (z<12){this.zoomWarning=false}
@@ -51,7 +53,7 @@ export class ResultsMapPage {
       //bind this allows to update scope through external callback function
     }.bind(this));
 
-    //add markers
+    //add markers from font-awesome collection
     var redMarker = L.AwesomeMarkers.icon({
       icon: 'shopping-cart',
       markerColor: 'red',
