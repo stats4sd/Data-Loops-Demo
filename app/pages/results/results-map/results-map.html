@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>results-map</ion-title>
+    <ion-buttons end>
+      <button (click)="close()">
+        Fermer
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="results-map">
+  <p class="zoom-warning" *ngIf="zoomWarning==true">Zooming further will require internet access</p>
+  <div id="map"></div>
+</ion-content>

@@ -1,0 +1,40 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>results-demos</ion-title>
+    <ion-buttons end>
+      <button (click)="refresh()">
+        <span *ngIf="!finished">Formes de chargement...</span>
+        <span *ngIf="anyErrors">Error</span>
+        <span *ngIf="finished && !anyErrors">Recharger</span>
+        <ion-icon name="refresh" *ngIf="finished || anyErrors"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div id="noForms" *ngIf="!forms" class="warning">No Forms Sync'd</div>
+  <div padding>
+    <h3>Summary</h3>
+    <div id="formSummaries">
+      <ion-grid>
+        <ion-row>
+          <ion-col width-75><strong>Form</strong></ion-col>
+          <ion-col width-25><strong>Total Submissions</strong></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let form of forms">
+          <ion-col width-75>{{form.title}}</ion-col>
+          <ion-col width-25>{{results[form.formid].length}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <h3>Custom</h3>
+    <button (click)="showResult('map')">Map</button>
+    <button (click)="showResult('r')">R</button>
+    <button (click)="showResult('vega')">Vega</button>
+  </div>
+</ion-content>

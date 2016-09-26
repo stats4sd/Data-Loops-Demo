@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Forms</ion-title>
+    <ion-buttons end>
+      <button (click)="refresh()">
+        <span *ngIf="!finished">Refreshing forms...</span>
+        <span *ngIf="anyErrors">Error</span>
+        <span *ngIf="finished && !anyErrors">Refresh</span>
+        <ion-icon name="refresh" *ngIf="finished || anyErrors"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>Published Forms:</p>
+  <ion-list>
+    <ion-item *ngFor="let form of forms">
+      <ion-icon name="clipboard" item-left *ngIf="form.downloadable"></ion-icon>
+      <ion-icon name="clipboard" light-grey item-left *ngIf="!form.downloadable"></ion-icon>
+      <h2>{{form.title}}</h2>
+      <p>{{form.date_modified | date:'medium'}}</p>
+      <button clear item-right (click)="openForm(form)" *ngIf="form.enketoLink && form.downloadable">
+        <ion-icon name="open"></ion-icon>
+        Ouvert
+      </button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -10,6 +10,9 @@
   <link ios-href="build/css/app.ios.css" rel="stylesheet">
   <link md-href="build/css/app.md.css" rel="stylesheet">
   <link wp-href="build/css/app.wp.css" rel="stylesheet">
+  <link href="external-packages/Leaflet/leaflet.css" rel="stylesheet">
+  <link href="external-packages/Leaflet/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link href="external-packages/Leaflet/leaflet-awesome-markers/leaflet.awesome-markers.css" rel="stylesheet">
 </head>
 <body>
 
@@ -25,5 +28,11 @@
   <script src="build/js/zone.js"></script>
   <!-- The bundle which is built from the app's source code -->
   <script src="build/js/app.bundle.js"></script>
+  <script src="external-packages/Leaflet/leaflet-awesome-markers/leaflet.awesome-markers.min.js"></script>
+  <script src="external-packages/Vega/d3.v3.min.js"></script>
+  <script src="external-packages/Vega/vega-lite.js"></script>
+  <script src="external-packages/Vega/vega.js"></script>
+  <!--important to make sure embed called after vega to add on top-->
+  <script src="external-packages/Vega/vega-embed.js"></script>
 </body>
 </html>
