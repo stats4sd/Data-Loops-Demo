@@ -1,13 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Results
+      Images Demo
     </ion-title>
     <ion-buttons end>
-      <button (click)="refresh()">
-        <span *ngIf="!finished">Loading Results...</span>
-        <span *ngIf="finished">Refresh</span>
-        <ion-icon name="refresh" *ngIf="finished"></ion-icon>
+      <button (click)="close()">
+        Close
+        <ion-icon name="close-circle"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -20,6 +19,7 @@
       <ion-col width-33><h3>Happy People</h3>
         <div *ngFor="let result of results">
           <div *ngIf="result.how_do_you_feel_today_=='Happy'" class="result">
+            <p>{{result._submission_time | date:'medium'}}</p>
             <img src="images/happy.jpg">
             <p>{{result.what_s_your_name_}}</p>
           </div>

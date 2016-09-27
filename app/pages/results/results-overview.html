@@ -16,7 +16,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="results-overview-page">
   <div id="noForms" *ngIf="!forms" class="warning">No Forms Sync'd</div>
   <div padding>
     <h3>Summary</h3>
@@ -32,9 +32,15 @@
         </ion-row>
       </ion-grid>
     </div>
-    <h3>Custom</h3>
-    <button (click)="showResult('map')">Map</button>
-    <button (click)="showResult('r')">R</button>
-    <button (click)="showResult('vega')">Vega</button>
+    <h3>Custom Visualisations</h3>
+    <ion-list *ngFor="let customResult of customResults">
+      <ion-item (click)="showResult(customResult.ResultPageName)">
+        <ion-thumbnail item-left>
+          <img src="{{customResult.ImageSrc}}">
+        </ion-thumbnail>
+        <h2>{{customResult.Name}}</h2>
+        <p>{{customResult.Description}}</p>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

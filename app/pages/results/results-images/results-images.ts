@@ -1,33 +1,29 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {KoboApi} from "../../../providers/kobo-api/kobo-api";
+import {Storage, SqlStorage} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
+import {ViewController} from "ionic-angular/index";
 
 @Component({
   templateUrl: 'build/pages/results//results-images/results-images.html'
 })
 export class ResultsImagesPage {
   results: any = [];
+  storage:Storage;
   anyErrors: boolean;
   finished: boolean;
   private data: Observable<any>;
 
-  constructor(private koboApi:KoboApi) {
-    this.getResults()
+  constructor( public viewCtrl:ViewController) {
+    this.storage = new Storage(SqlStorage);
+    this.storage.get('results').then((results)=> {
+      //convert from cached string to json format, use data from form id 69280
+      let allResults=JSON.parse(results);
+      this.results=allResults[69280];
+      console.log(this.results)
+    })
   }
-
-  getResults(){
-    this.koboApi.koboRequest('https://kc.kobotoolbox.org/api/v1/data/67050?format=json').subscribe(
-      result =>this.results = result,
-      error =>this.anyErrors=true,
-      () => this.finished = true
-    );
+  close(){
+    this.viewCtrl.dismiss()
   }
-
-  refresh(){
-    console.log('refreshing');
-    this.finished=false;
-    this.getResults();
-  }
-
 }

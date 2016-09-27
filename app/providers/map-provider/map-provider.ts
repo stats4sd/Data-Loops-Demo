@@ -15,7 +15,7 @@ export class MapService {
       Online: new L.TileLayer("http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
       }),
-      Offline: new L.TileLayer('img/mapTiles/{z}/{x}/{y}.png', {
+      Offline: new L.TileLayer('images/mapTiles/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       })
     };

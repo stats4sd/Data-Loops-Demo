@@ -24,9 +24,11 @@ export class ResultsOverviewPage {
   finished:boolean=true;
   anyErrors:boolean=false;
   cachedResults:boolean[];
+  customResults:any;
   forms:any;
 
   constructor(private koboApi:KoboApi, private navCtrl: NavController, public modal:ModalController) {
+    this.customResults=customResults;
     this.storage = new Storage(SqlStorage);
     this.storage.get('results').then((results)=> {
           if (results) {
@@ -91,3 +93,35 @@ export class ResultsOverviewPage {
   }
 
 }
+
+var customResults=[
+  {
+    Name: 'Images',
+    Description: 'This demo provides simple summaries of data using pictures',
+    FormData: 'Happiness Survey',
+    ImageSrc:'images/results/ImagesDemo.png',
+    ResultPageName:'images'
+  },
+  {
+    Name: 'Map',
+    Description: 'This demo uses Leaflet to display form data overlaid on a map',
+    FormData: '',
+    ImageSrc:'images/results/MapDemo.png',
+    ResultPageName:'map'
+  },
+  {
+    Name: 'R',
+    Description: 'This demo connects to a remote server to process form data using R (internet required)',
+    FormData: '',
+    ImageSrc:'images/results/RDemo.png',
+    ResultPageName:'r'
+  },
+  {
+    Name: 'Charts',
+    Description: 'This demo uses Vega to create graphical visualisations of data',
+    FormData: '',
+    ImageSrc:'images/results/ChartsDemo.png',
+    ResultPageName:'vega'
+  },
+
+];

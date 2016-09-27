@@ -47,9 +47,9 @@ export class ResultsMapPage {
     //function to change online/offline map and give warning after zoom
     map.on('zoomend',function(){
       var z =map.getZoom();
-      if (z<12){this.zoomWarning=false}
-      if (z>=12){this.zoomWarning=true}
-      if (z>12){return baseMaps.Online.addTo(map) }
+      if (z<8){this.zoomWarning=false}
+      if (z>=8){this.zoomWarning=true}
+      if (z>8){return baseMaps.Online.addTo(map) }
       //bind this allows to update scope through external callback function
     }.bind(this));
 

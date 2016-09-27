@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {HomePage} from '../home/home';
-import {OverviewPage} from "../forms/overview/overview";
+import {FormsOverviewPage} from "../sample-forms/forms-overview/forms-overview";
 import {ResultsOverviewPage} from "../results/results-overview";
 
 @Component({
@@ -16,7 +16,7 @@ export class TabsPage {
     // this tells the tabs component which Pages
     // should be each tab's root Page
     this.tab1Root = HomePage;
-    this.tab2Root = OverviewPage;
+    this.tab2Root = FormsOverviewPage;
     this.tab3Root = ResultsOverviewPage;
   }
 }
