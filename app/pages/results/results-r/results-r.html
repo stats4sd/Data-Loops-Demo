@@ -13,6 +13,20 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="results-r" padding>
+  <p>Use the R Stats package to remotely calculate statistics based on input (internet required)</p>
+  <p>Just a few of the functions provided by the R 'stats' package</p>
+  <p>
+    <button *ngFor="let method of statMethods" (click)="calculate(method)">{{method}}</button>
+  </p>
+  <div id="output" padding>{{output}}</div>
+  <p>Similarly charts can be plotted and directly imported from the ggplot2 package</p>
+  <p>
+    <button *ngFor="let plot of plotMethods" (click)="makePlot(plot)">{{plot}}</button>
+  </p>
 
+  <div id="plot"></div>
+  <h3 id="rawData">Raw Data</h3>
+  <p>Favourite Numbers:</p>
+  <p>{{numberList}}</p>
 </ion-content>

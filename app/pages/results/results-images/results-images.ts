@@ -4,6 +4,7 @@ import {Storage, SqlStorage} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
 import {ViewController} from "ionic-angular/index";
 
+
 @Component({
   templateUrl: 'build/pages/results//results-images/results-images.html'
 })

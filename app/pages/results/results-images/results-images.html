@@ -13,6 +13,11 @@
 </ion-header>
 
 <ion-content padding class="results-images">
+  <div id="intro">
+    <p>In this demo we can see results displayed as simple text and images. There are a total of <strong>{{results.length}}</strong> results outlined as follows:</p>
+    <br>
+  </div>
+
 
   <ion-grid>
     <ion-row>
@@ -21,23 +26,25 @@
           <div *ngIf="result.how_do_you_feel_today_=='Happy'" class="result">
             <p>{{result._submission_time | date:'medium'}}</p>
             <img src="images/happy.jpg">
-            <p>{{result.what_s_your_name_}}</p>
+            <p class="name">{{result.what_s_your_name_}}</p>
           </div>
         </div>
       </ion-col>
       <ion-col width-33><h3>Neutral People</h3>
         <div *ngFor="let result of results">
           <div *ngIf="result.how_do_you_feel_today_=='Neutral'" class="result">
+            <p>{{result._submission_time | date:'medium'}}</p>
             <img src="images/neutral.jpg">
-            <p>{{result.what_s_your_name_}}</p>
+            <p class="name">{{result.what_s_your_name_}}</p>
           </div>
         </div>
       </ion-col>
       <ion-col width-33><h3>Unhappy People</h3>
         <div *ngFor="let result of results">
           <div *ngIf="result.how_do_you_feel_today_=='Unhappy'" class="result">
+            <p>{{result._submission_time | date:'medium'}}</p>
             <img src="images/unhappy.jpg">
-            <p>{{result.what_s_your_name_}}</p>
+            <p class='name'>{{result.what_s_your_name_}}</p>
           </div>
         </div>
       </ion-col>

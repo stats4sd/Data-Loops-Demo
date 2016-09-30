@@ -1,28 +1,46 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Platform } from 'ionic-angular';
+import {Storage, SqlStorage} from 'ionic-angular';
 
 declare var vg;
 @Component({
   templateUrl: 'build/pages/results/results-vega/results-vega.html',
 })
 export class ResultsVegaPage {
+  platformHeight:number;
+  platformWidth:number;
+  storage:Storage;
+  results;
 
-  constructor(private nav: NavController, params:NavParams, public viewCtrl:ViewController) {
-    visValues=this.generateVisValues();
-    var vlSpec = getSpec();
-    var embedSpec = {
-      mode: "vega-lite",
-      spec: vlSpec
+  constructor(private nav: NavController, params:NavParams, public viewCtrl:ViewController, public platform:Platform) {
+    this.storage = new Storage(SqlStorage);
+    this.storage.get('results').then((results)=> {
+      //convert from cached string to json format, use data from form id 69280
+      let allResults=JSON.parse(results);
+      this.results=allResults[69280];
+      console.log(JSON.stringify(this.results));
+      var embedSpec = {
+        mode: "vega-lite",
+        spec: generateSpec(this.results, platform.width(), platform.height())
+      };
+      var embedSpec2 = {
+        mode: "vega-lite",
+        spec: generateSpec2(this.results, platform.width(), platform.height())
     };
+      var embedSpec3 = {
+        mode: "vega",
+        spec: generateSpec3(this.results, platform.width(), platform.height())
+      };
 
-    vg.embed("#vegaVis", demoSpec, function(error, result) {
+      vg.embed("#vegaVis", embedSpec3, function(error, result) {
+        console.log(error);
+      });
+      vg.embed("#vegaVis2", embedSpec2, function(error, result) {
+        console.log(error);
+      });
     });
-  }
 
-  generateVisValues(){
-    var vals=[];
 
-    return vals
   }
 
   close(){
@@ -31,93 +49,215 @@ export class ResultsVegaPage {
 
 }
 
-var visValues;
-
-function getSpec(){
-  console.log(visValues);
-  var spec = {
-    "description": "The Trellis display by Becker et al. helped establish small multiples as a “powerful mechanism for understanding interactions in studies of how a response depends on explanatory variables”. Here we reproduce a trellis of Barley yields from the 1930s, complete with main-effects ordering to facilitate comparison.",
+function generateSpec(data,width,height) {
+  console.log(width);
+  console.log(height);
+  var barSpec = {
+    "width": width,
+    "height": height / 2,
+    "padding": {"top": 10, "left": 30, "bottom": 30, "right": 10},
     "data": {
-      "values": visValues
+      "values": data
     },
     "mark": "point",
     "encoding": {
-      "row": {"field": "site", "type": "ordinal"},
-      "x": {"aggregate": "mean", "field": "grain yield", "type": "quantitative"},
-      "y": {
-        "field": "variety", "type": "ordinal",
-        "sort": {"field": "grain yield","op": "mean"},
-        "scale": {"bandSize": 12}
-      },
-      "color": {"field": "year", "type": "nominal"}
+      "x": {"field": "how_do_you_feel_today_", "type": "nominal"},
+      "y": {"aggregate": "average", "field": "what_is_your_favourite_number_", "type": "quantitative"}
     }
-  };
-  return spec
+  }
+  return barSpec
 }
 
-var demoSpec={
-  "width": 400,
-  "height": 200,
-  "padding": {"top": 10,"left": 30,"bottom": 30,"right": 10},
-  "data": [
-    {
-      "name": "table",
-      "values": [
-        {"x": 1,"y": 28},
-        {"x": 2,"y": 55},
-        {"x": 3,"y": 43},
-        {"x": 4,"y": 91},
-        {"x": 5,"y": 81},
-        {"x": 6,"y": 53},
-        {"x": 7,"y": 19},
-        {"x": 8,"y": 87},
-        {"x": 9,"y": 52},
-        {"x": 10,"y": 48},
-        {"x": 11,"y": 24},
-        {"x": 12,"y": 49},
-        {"x": 13,"y": 87},
-        {"x": 14,"y": 66},
-        {"x": 15,"y": 17},
-        {"x": 16,"y": 27},
-        {"x": 17,"y": 68},
-        {"x": 18,"y": 16},
-        {"x": 19,"y": 49},
-        {"x": 20,"y": 15}
-      ]
-    }
-  ],
-  "scales": [
-    {
-      "name": "x",
-      "type": "ordinal",
-      "range": "width",
-      "domain": {"data": "table","field": "x"}
+function generateSpec2(data,width,height) {
+  console.log(width);
+  console.log(height);
+  var barSpec = {
+    "width": width,
+    "height": height / 2,
+    "padding": {"top": 10, "left": 30, "bottom": 30, "right": 10},
+    "data": {
+      "values": data
     },
-    {
-      "name": "y",
-      "type": "linear",
-      "range": "height",
-      "domain": {"data": "table","field": "y"},
-      "nice": true
+    "mark": "bar",
+    "transform": {
+      "filter": "datum.what_is_your_favourite_number_ <= 100"
+    },
+    "encoding": {
+      "x": {"field": "what_is_your_favourite_number_", "type": "quantitative", "bin": {"maxbins": 10}},
+      "y": {"aggregate": "count", "field": "what_is_your_favourite_number_", "type": "quantitative"}
     }
-  ],
-  "axes": [{"type": "x","scale": "x"},{"type": "y","scale": "y"}],
-  "marks": [
-    {
-      "type": "rect",
-      "from": {"data": "table"},
-      "properties": {
-        "enter": {
-          "x": {"scale": "x","field": "x"},
-          "width": {"scale": "x","band": true,"offset": -1},
-          "y": {"scale": "y","field": "y"},
-          "y2": {"scale": "y","value": 0}
-        },
-        "update": {"fill": {"value": "steelblue"}},
-        "hover": {"fill": {"value": "red"}}
+  }
+  return barSpec
+}
+
+function generateSpec3(data,deviceWidth,deviceHeight) {
+  var specWidth=Math.min(deviceWidth-100,300);
+  var specHeight=Math.min(deviceHeight-100,300);
+  console.log(specWidth.toString())
+  var barSpec = {
+    "width": 1,
+    "height": 1,
+    "padding": "auto",
+    /*"signals": [
+      {
+        "name": "tooltip",
+        "init": {},
+        "streams": [
+          {"type": "symbol:mouseover", "expr": "datum"},
+          {"type": "symbol:mouseout", "expr": "{}"}
+        ]
       }
-    }
-  ]
-};
+    ],*/
+    "data": [
+      {
+        "name": "form-data",
+        "values": data,
+        "format": {
+          "type": "json",
+          "parse": {"what_is_your_favourite_number_": "number"}
+        },
+        "transform": [
+          {
+            "type": "filter",
+            "test": "datum[\"what_is_your_favourite_number_\"] !== null && !isNaN(datum[\"what_is_your_favourite_number_\"])"
+          }
+        ]
+      },
+      {
+        "name": "layout",
+        "source": "form-data",
+        "transform": [
+          {
+            "type": "aggregate",
+            "summarize": [
+              {
+                "field": "how_do_you_feel_today_",
+                "ops": ["distinct"]
+              }
+            ]
+          },
+          {"type": "formula","field": "width","expr": specWidth.toString()},
+          {"type": "formula","field": "height","expr": specHeight.toString()}
+        ]
+      }
+    ],
+    "marks": [
+      {
+        "name": "root",
+        "type": "group",
+        "from": {"data": "layout"},
+        "properties": {
+          "update": {
+            "width": {"field": "width"},
+            "height": {"field": "height"}
+          }
+        },
+        "marks": [
+          {
+            "name": "marks",
+            "type": "symbol",
+            "from": {"data": "form-data"},
+            "properties": {
+              "enter": {
+                "x": {
+                  "scale": "x",
+                  "field": "how_do_you_feel_today_"
+                },
+                "y": {
+                  "scale": "y",
+                  "field": "what_is_your_favourite_number_"
+                },
+                "size": {"value": 30},
+                "shape": {"value": "circle"},
+                "strokeWidth": {"value": 2},
+                "opacity": {"value": 0.7},
+                "stroke": {"value": "#4682b4"},
+                "fill": {"value": "transparent"}
+              },
+            }
+          },
+          /*{
+            "type": "text",
+            "properties": {
+              "enter": {
+                "align": {"value": "center"},
+                "fill": {"value": "#333"}
+              },
+              "update": {
+                "x": {"scale": "x", "signal": "tooltip.what_is_your_favourite_number_"},
+                "dx": {"scale": "x", "band": true, "mult": 0.5},
+                "y": {"scale": "y", "signal": "tooltip.y", "offset": -5},
+                "text": {"signal": "tooltip.y"},
+                "fillOpacity": [
+                  { "test": "!tooltip._id",
+                    "value": 0
+                  },
+                  {"value": 1}
+                ]
+              }
+            }
+          }*/
+        ],
+        "scales": [
+          {
+            "name": "x",
+            "type": "ordinal",
+            "domain": {
+              "data": "form-data",
+              "field": "how_do_you_feel_today_",
+              "sort": true
+            },
+            "rangeMin": 0,
+            "rangeMax": specWidth,
+            "round": true,
+            "points": true,
+            "padding": 1
+          },
+          {
+            "name": "y",
+            "type": "linear",
+            "domain": {
+              "data": "form-data",
+              "field": "what_is_your_favourite_number_"
+            },
+            "rangeMin": specHeight,
+            "rangeMax": 0,
+            "round": true,
+            "nice": true,
+            "zero": true
+          }
+        ],
+        "axes": [
+          {
+            "type": "x",
+            "scale": "x",
+            "grid": false,
+            "ticks": 5,
+            "title": "how_do_you_feel_today_",
+            "properties": {
+              "labels": {
+                "text": {
+                  "template": "{{ datum[\"data\"] | truncate:25 }}"
+                },
+                "angle": {"value": 270},
+                "align": {"value": "right"},
+                "baseline": {"value": "middle"}
+              }
+            }
+          },
+          {
+            "type": "y",
+            "scale": "y",
+            "format": "s",
+            "grid": true,
+            "layer": "back",
+            "title": "what_is_your_favourite_number_"
+          }
+        ]
+      }
+    ]
+  }
+  return barSpec
+}
 
 

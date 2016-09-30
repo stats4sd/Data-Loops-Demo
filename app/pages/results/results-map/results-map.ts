@@ -26,7 +26,7 @@ export class ResultsMapPage {
     var map = new L.Map('map', {
       zoomControl: false,
       center: [18,8],
-      zoom: 4,
+      zoom: 2,
       maxNativeZoom:8,
       minZoom: 1,
       maxZoom: 15,
