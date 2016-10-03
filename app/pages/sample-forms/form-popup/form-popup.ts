@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams, ViewController} from 'ionic-angular';
-import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser'
+import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser';
+import {Geolocation} from 'ionic-native'
 
 
 
@@ -17,6 +18,7 @@ export class FormPopup {
     //use sanitizer to avoid error unsafe resource url (trusted)
     this.enketoLink=this.sanitizer.bypassSecurityTrustResourceUrl(this.form.enketoLink);
     console.log(this.form);
+    Geolocation.getCurrentPosition()
   }
   close(){
     //attempts to retrieve info from loaded iframe .... not working - need to access iframe.contents which requires same domain (check on mobile?)
