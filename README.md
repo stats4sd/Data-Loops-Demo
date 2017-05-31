@@ -1,4 +1,4 @@
-# Kobo-Happiness-Demo
+# Data Loops Demo
 This app is designed as a proof-of-concept to show how ODK forms can be integrated into a custom mobile application and allow for continuous data loops.
 
 The app does the following things:
