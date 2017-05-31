@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import  'leaflet';
 import  'leaflet.markercluster';
-import  'leaflet.awesome-markers';
+// import  'leaflet.awesome-markers';
 
 @Injectable()
 export class MapService {
