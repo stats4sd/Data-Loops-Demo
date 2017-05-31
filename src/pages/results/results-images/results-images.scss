@@ -1,0 +1,40 @@
+$break-small: 500px;
+$break-large: 500px;
+
+results-images {
+  img{
+
+  }
+  #intro{
+    p{
+      text-align: left;
+      font-size: 1.4rem;
+    }
+  }
+  p{
+    margin:0;
+    text-align: center;
+  }
+  .result {
+    border: 2px solid black;
+    margin-bottom: 4px
+  }
+  h3{
+    height:2em;
+  }
+  h3,p{
+    @media screen and (max-width: $break-small) {
+      font-size: 4vw;
+    }
+    @media screen and (min-width: $break-large) {
+      font-size:20px;
+    }
+  }
+  .name{
+    text-overflow: ellipsis;
+    height: 1em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+}

@@ -1,0 +1,23 @@
+<div id=formViewDiv [style.opacity]="opacity" [style.pointer-events]="pointerEvents">
+  <div id="nav">
+    <ion-header>
+      <ion-navbar>
+        <ion-buttons start>
+          <button ion-button item-left icon-right (click)="takePhoto()" *ngIf="showCamera">
+        Prenez Foto
+        <ion-icon name="camera"></ion-icon>
+      </button>
+        </ion-buttons>
+        <ion-buttons end>
+          <button ion-button icon-right (click)="close()">
+        Fermer
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+        </ion-buttons>
+      </ion-navbar>
+    </ion-header>
+  </div>
+  <div class="iframe" [style.height]="iframeHeight">
+    <iframe id="form-iframe" class="enketo-iframe" [src]="enketoLink" sandbox="allow-forms allow-modals allow-same-origin allow-scripts allow-top-navigation"></iframe>
+  </div>
+</div>

@@ -12,3 +12,6 @@ You can see a preview of the app in your browser here or on a mobile here
 
 For any questions or queries contact chris@stats4sd.org
 
+
+For ref:
+Install leaflet plugins: https://forum.ionicframework.com/t/install-leaflet-plugin-for-ionic-2/81313/7
